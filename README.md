@@ -1,5 +1,5 @@
 # Display_Properties
-Display a specific property for a part with tcl.
+* Display a specific property for a part with tcl.
 
 ## Environment
 1. Tcl
