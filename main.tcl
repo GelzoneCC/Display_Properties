@@ -6,6 +6,8 @@
 
 set localWorkDir "workDir"
 set capAutoLoad "C:/Cadence/SPB_23.1/tools/capture/tclscripts/capAutoLoad/"
+source "~/GlobalProc.tcl"
+namespace import GlobalProc::ReplaceTXTKeyword
 
 proc main {inputDSNFilePath} {
 	set inputDSNFilePath [string map {\\ /} $inputDSNFilePath]
@@ -60,27 +62,6 @@ proc CopyFiles2Local {} {
 	file copy -force "${fileSvrPath}TclCode/DisplayProperties.tcl" $capAutoLoad
 	
 	file copy -force "${fileSvrPath}TclCode/CMD.tcl" $localWorkDir
-}
-
-proc ReplaceTXTKeyword {TXTFilePath oldText newText} {
-	# Check if the file exists.
-    if {![file exists $TXTFilePath]} {
-        puts "Error: File $TXTFilePath does not exist."
-        return
-    }
-
-    # Read the file content.
-	set readFileHandle [open $TXTFilePath r]
-    set fileContent [read $readFileHandle]
-	close $readFileHandle
-
-    # Replace the old text with the new text.
-    set updatedContent [string map [list $oldText $newText] $fileContent]
-
-    # Write the updated content back to the file.
-    set writeFileHandle [open $TXTFilePath w]
-    puts -nonewline $writeFileHandle $updatedContent
-	close $writeFileHandle
 }
 
 proc DeleteFiles {} {
